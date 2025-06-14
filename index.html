@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Учёт заданий</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>📅 Учёт выполнения заданий</h1>
+  
+  <div id="auth">
+    <button onclick="authorize()">🔒 Войти как родитель</button>
+  </div>
+
+  <input type="date" id="datePicker" value="" />
+
+  <table id="taskTable">
+    <thead>
+      <tr>
+        <th>Имя</th>
+        <th colspan="18">Задания</th>
+      </tr>
+    </thead>
+    <tbody id="taskBody">
+      <!-- Дети и задания -->
+    </tbody>
+  </table>
+
+  <h2>📊 Рейтинг за месяц</h2>
+  <div id="ratingChart">
+    <!-- Столбчатая диаграмма -->
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
