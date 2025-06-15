@@ -98,7 +98,7 @@ function updateChart() {
   const backgroundColors = names.map(name => {
     if (name === 'Коля') return 'green';
     if (name === 'Серафима') return 'steelblue';
-    if (name === 'Глеб') return 'red'; // Глеб
+    if (name === 'Глеб') return '#8F00FF'; // Глеб
   });
 
   window.myChart = new Chart(ctx, {
