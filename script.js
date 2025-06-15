@@ -69,26 +69,66 @@ function renderTable() {
   updateChart();
 }
 
+// Построение диаграммы
 function updateChart() {
-  const chart = document.getElementById("ratingChart");
-  chart.innerHTML = "";
-  const month = getCurrentDate().slice(0, 7);
+  const monthlyScores = {};
+  const selectedMonth = selectedDate.substring(0, 7); // YYYY-MM
 
-  children.forEach(name => {
-    let total = 0;
-    for (let day = 1; day <= 31; day++) {
-      const dayStr = `${month}-${String(day).padStart(2, "0")}`;
-      const tasks = loadTasks(dayStr, name);
-      total += tasks.filter(Boolean).length;
+  for (let date in data) {
+    if (date.startsWith(selectedMonth)) {
+      for (let name in data[date]) {
+        if (!monthlyScores[name]) {
+          monthlyScores[name] = 0;
+        }
+        monthlyScores[name] += data[date][name].filter(Boolean).length;
+      }
     }
+  }
 
-    const bar = document.createElement("div");
-    bar.className = "bar";
-    bar.style.height = (total * 5) + "px"; // масштаб
-    bar.innerHTML = `<div>${total}</div><div>${name}</div>`;
-    chart.appendChild(bar);
+  const ctx = document.getElementById('ratingChart').getContext('2d');
+  if (window.myChart) {
+    window.myChart.destroy();
+  }
+
+  const names = Object.keys(monthlyScores);
+  const scores = Object.values(monthlyScores);
+
+  const backgroundColors = names.map(name => {
+    if (name === 'Коля') return 'green';
+    if (name === 'Серафима') return 'steelblue';
+    return 'dodgerblue'; // Глеб
+  });
+
+  window.myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: names,
+      datasets: [{
+        data: scores,
+        backgroundColor: backgroundColors
+      }]
+    },
+    options: {
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              return `${context.raw} баллов`;
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          precision: 0
+        }
+      }
+    }
   });
 }
+
 
 document.getElementById("datePicker").addEventListener("change", renderTable);
 
