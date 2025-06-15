@@ -29,3 +29,7 @@ th, td {
   color: white;
   font-weight: bold;
 }
+
+.bar.kolya {
+  background-color: green;
+}
