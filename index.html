@@ -1,55 +1,43 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Учёт заданий</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    table, td, th { border: 1px solid gray; border-collapse: collapse; }
+    td, th { padding: 4px 8px; text-align: center; }
+    input[type="checkbox"] { transform: scale(1.2); }
+    canvas { margin-top: 30px; }
+    th { background: #f0f0f0; }
+  </style>
 </head>
 <body>
-  <h1>📅 Учёт выполнения заданий</h1>
-  
-  <div id="auth">
-    <button onclick="authorize()">🔒 Войти как родитель</button>
-  </div>
 
-  <input type="date" id="datePicker" value="" />
+  <h1>Учёт выполнения заданий</h1>
 
-  <table id="taskTable">
+  <button onclick="authorize()">Войти родителю</button>
+  <p>Дата: <input type="date" id="datePicker"></p>
+
+  <table>
     <thead>
       <tr>
         <th>Имя</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-<th>6</th>
-<th>7</th>
-<th>8</th>
-<th>9</th>
-<th>10</th>
-<th>11</th>
-<th>12</th>
-<th>13</th>
-<th>14</th>
-<th>15</th>
-<th>16</th>
-<th>17</th>
-<th>18</th>
-
+        <!-- Автоматически 18 заданий -->
+        <script>
+          for (let i = 1; i <= 18; i++) {
+            document.write(`<th>${i}</th>`);
+          }
+        </script>
       </tr>
     </thead>
-    <tbody id="taskBody">
-      <!-- Дети и задания -->
-    </tbody>
+    <tbody id="taskBody"></tbody>
   </table>
 
-  <h2>📊 Рейтинг за месяц</h2>
-  <div id="ratingChart">
-    <!-- Столбчатая диаграмма -->
-  </div>
+  <canvas id="ratingChart" width="600" height="300"></canvas>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
+
