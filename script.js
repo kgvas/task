@@ -69,21 +69,23 @@ function renderTable() {
   updateChart();
 }
 
-// Построение диаграммы
+// Построение диаграммы накопительных баллов за месяц
 function updateChart() {
   const monthlyScores = {};
+  const selectedDate = getCurrentDate();
   const selectedMonth = selectedDate.substring(0, 7); // YYYY-MM
 
-  for (let date in data) {
-    if (date.startsWith(selectedMonth)) {
-      for (let name in data[date]) {
-        if (!monthlyScores[name]) {
-          monthlyScores[name] = 0;
-        }
-        monthlyScores[name] += data[date][name].filter(Boolean).length;
+  children.forEach(name => {
+    monthlyScores[name] = 0;
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key.startsWith(`tasks-${selectedMonth}`) && key.includes(`-${name}`)) {
+        const tasks = JSON.parse(localStorage.getItem(key));
+        monthlyScores[name] += tasks.filter(Boolean).length;
       }
     }
-  }
+  });
 
   const ctx = document.getElementById('ratingChart').getContext('2d');
   if (window.myChart) {
@@ -129,9 +131,7 @@ function updateChart() {
   });
 }
 
-
+// Инициализация
 document.getElementById("datePicker").addEventListener("change", renderTable);
-
-// Установка текущей даты при загрузке
 document.getElementById("datePicker").value = new Date().toISOString().slice(0, 10);
 renderTable();
