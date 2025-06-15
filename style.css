@@ -16,7 +16,7 @@ th, td {
 }
 
 #ratingChart {
-  display: flex;
+  display: inline-flex;
   width: 500px;
   justify-content: space-around;
   margin-top: 20px;
