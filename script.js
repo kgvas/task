@@ -111,6 +111,8 @@ function updateChart() {
       }]
     },
     options: {
+      responsive: false, // ← важно! Отключает автоматическое масштабирование
+      maintainAspectRatio: false,
       plugins: {
         legend: { display: false },
         tooltip: {
